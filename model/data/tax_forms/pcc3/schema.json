@@ -1,0 +1,106 @@
+{
+    "fields":[
+       {
+          "id":"4",
+          "name":"DATA DOKONANIA CZYNNOŚCI",
+          "required":true,
+          "type":"Data",
+          "description":"Data dokonania czynności nie może być wcześniejsza niż 01.01.2024 r. i nie może być późniejsza niż data złożenia deklaracji",
+          "rule":"data dokonania czynności jest większa lub równa 01.01.2024 r. i jest mniejsza lub równa dacie złożenia deklaracji P4>=01.01.2024 ORAZ P4<=data złożenia"
+       },
+       {
+          "id":"6",
+          "name":"CEL ZŁOŻENIA DEKLARACJI",
+          "required":true,
+          "type":"Całkowite",
+          "description":"Cel złożenia deklaracji musi przyjmować wartość: 1 (złożenie deklaracji)",
+          "rule":"cel złożenia deklaracji jest równy: 1 (złożenie deklaracji) P6=1"
+       },
+       {
+          "id":"7",
+          "name":"PODMIOT SKŁADAJĄCY DEKLARACJĘ",
+          "required":true,
+          "type":"Całkowite",
+          "description":"Podmiot składający deklarację musi przyjmować wartość: 1 (podmiot zobowiązany solidarnie do zapłaty podatku), lub 5 (inny podmiot).",
+          "rule":"podmiot składający deklarację jest równy: 1 (podmiot zobowiązany solidarnie do zapłaty podatku) lub 5 (inny podmiot) P7=1 LUB P7=5"
+       },
+       {
+          "id":"20",
+          "name":"PRZEDMIOT OPODATKOWANIA",
+          "required":true,
+          "type":"Całkowite",
+          "description":"Przedmiot opodatkowania musi przyjmować wartość: 1 (umowa)",
+          "rule":"przedmiot opodatkowania jest równy: 1 (umowa) P20 = 1"
+       },
+       {
+          "id":"21",
+          "name":"MIEJSCE POŁOŻENIA RZECZY LUB WYKONYWANIA PRAWA MAJĄTKOWEGO",
+          "required":false,
+          "type":"Całkowite",
+          "description":"Miejsce położenia rzeczy lub miejsce wykonywania prawa majątkowego musi przyjmować wartość: 0 (jest niewypełnione), 1 (terytorium RP) lub 2 (poza terytorium RP),",
+          "rule":"miejsce położenia rzeczy lub wykonywania prawa majątkowego jest równe: 0 (jest niewypełnione w przypadku obliczenia podatku od umowy spółki / zmiany umowy) lub 1 (terytorium RP) lub 2 (poza terytorium RP) P21=0 LUB P21=1 LUB P21=2"
+       },
+       {
+          "id":"22",
+          "name":"MIEJSCE DOKONANIA CZYNNOŚCI CYWILNOPRAWNEJ",
+          "required":false,
+          "type":"Całkowite",
+          "description":"Miejsce dokonania czynności cywilnoprawnej musi przyjmować wartość: 0 (jest niewypełnione), 1 (terytorium RP) lub 2 (poza terytorium RP).",
+          "rule":"miejsce dokonania czynności cywilnoprawnej jest równe: 0 (jest niewypełnione) lub 1 (terytorium RP) lub 2 (poza terytorium RP) P22=0 LUB P22=1 LUB P22=2"
+       },
+       {
+          "id":"23",
+          "name":"ZWIĘZŁE OKREŚLENIE TREŚCI I PRZEDMIOTU CZYNNOŚCI CYWILNOPRAWNEJ",
+          "required":true,
+          "type":"Tekstowe (należy podać markę, model samochodu, rok produkcji i inne istotne informacje o stanie technicznym)"
+       },
+       {
+          "id":"26",
+          "name":"PODSTAWA OPODATKOWANIA DLA UMOWY SPRZEDAŻY",
+          "required":true,
+          "type":"Rzeczywiste Miano: PLN",
+          "description":"Podstawa opodatkowania dla umowy sprzedaży musi być większa lub równa 1000 PLN oraz podana po zaokrągleniu do pełnych złotych.",
+          "rule":"podstawa opodatkowania dla umowy sprzedaży jest większa lub równa 1000 PLN; zaokrąglona do pełnych złotych WYLICZENIE=ROUN(P26, 0) O ILE P26>=1000"
+       },
+       {
+          "id":"27",
+          "name":"OBLICZONY NALEŻNY PODATEK OD UMOWY SPRZEDAŻY",
+          "required":true,
+          "type":"Rzeczywiste Miano: PLN",
+          "description":"Obliczony należny podatek od czynności cywilnoprawnej dla umowy sprzedaży musi być równy iloczynowi podstawy opodatkowania i stawki podatku, zaokrąglonemu do pełnych złotych.",
+          "rule":"obliczony należny podatek od czynności cywilnoprawnej dla umowy sprzedaży jest równy iloczynowi: podstawa opodatkowania razy stawka podatku, po zaokrągleniu do pełnych złotych WYLICZENIE=ROUN(P26*2%, 0)"
+       },
+       {
+          "id":"46",
+          "name":"KWOTA NALEŻNEGO PODATKU",
+          "required":true,
+          "type":"Rzeczywiste Miano: PLN",
+          "description":"Kwota należnego podatku od czynności cywilnoprawnych musi być równa obliczonemu należnemu podatkowi od czynności cywilnoprawnej, której dotyczy deklaracja.",
+          "rule":"Kwota należnego podatku od czynności cywilnoprawnych jest równa obliczonemu należnemu podatkowi od czynności cywilnoprawnej WYLICZENIE=ROUN(P27, 0)"
+       },
+       {
+          "id":"53",
+          "name":"KWOTA PODATKU DO ZAPŁATY",
+          "required":true,
+          "type":"Rzeczywiste Miano: PLN Zaokrąglenie: do pełnych złotych",
+          "description":"Kwota podatku do zapłaty musi być równa kwocie obliczonego podatku należnego",
+          "rule":"kwota podatku do zapłaty jest równa kwocie obliczonego podatku należnego po zaokrągleniu do pełnych złotych WYLICZENIE=ROUN(P46, 0)"
+       },
+       {
+          "id":"62",
+          "name":"LICZBA DOŁĄCZONYCH ZAŁĄCZNIKÓW PCC-3/A",
+          "required":false,
+          "type":"Całkowite",
+          "description":"W przypadku gdy podmiotem składającym deklarację jest podmiot zobowiązany solidarnie do zapłaty podatku, to liczba dołączonych załączników PCC-3/A musi być większa od zera. W przeciwnym razie liczba dołączonych załączników PCC-3/A jest równa zero.",
+          "rule":"JEŚLI podmiotem składającym deklarację jest: podmiot zobowiązany solidarnie do zapłaty podatku P7=1 TO liczba dołączonych załączników PCC-3/A jest większa od zera P62>0 W PRZECIWNYM RAZIE liczba dołączonych załączników PCC-3/A jest równa zero P62=0"
+       },
+       {
+          "id":null,
+          "name":"POUCZENIA",
+          "required":true,
+          "type":"Całkowite",
+          "description":"POUCZENIA musi przyjmować wartość: 1 (Potwierdzam i akceptuję pouczenia)",
+          "rule":"POUCZENIA jest równy: 1 (Potwierdzam i akceptuję pouczenia)"
+       }
+    ]
+ }
